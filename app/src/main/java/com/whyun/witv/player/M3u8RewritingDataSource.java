@@ -78,8 +78,8 @@ public final class M3u8RewritingDataSource implements DataSource {
             Log.d(TAG, "Playlist unchanged: " + dataSpec.uri);
         }
         if (segmentPrefetcher != null) {
-            Log.d(TAG, "Trigger segment prefetch for playlist: " + dataSpec.uri);
-            segmentPrefetcher.prefetchPlaylistSegments(dataSpec.uri, fixed);
+            Log.d(TAG, "Update segment live window for playlist: " + dataSpec.uri);
+            segmentPrefetcher.updateLiveWindow(dataSpec.uri, fixed);
         }
         rewrittenData = fixed.getBytes(StandardCharsets.UTF_8);
         readPosition = 0;

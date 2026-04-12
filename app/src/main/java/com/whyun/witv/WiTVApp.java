@@ -22,12 +22,16 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class WiTVApp extends Application {
 
     private static WiTVApp instance;
+    /** 全局 ts 分片磁盘缓存上限。 */
     private static final long MEDIA_CACHE_MAX_BYTES = 96L * 1024L * 1024L;
+    /** Media3 SimpleCache 的目录名。 */
     private static final String MEDIA_CACHE_DIR_NAME = "media3-hls-segment-cache";
 
     private WebServer webServer;
     private DefaultBandwidthMeter bandwidthMeter;
+    /** Media3 缓存索引数据库，和 SimpleCache 搭配使用。 */
     private StandaloneDatabaseProvider mediaCacheDatabaseProvider;
+    /** 全局唯一的 ts 分片磁盘缓存实例。 */
     private SimpleCache mediaCache;
     private volatile PlayerManager activePlayerManager;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());

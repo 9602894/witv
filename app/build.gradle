@@ -34,13 +34,13 @@ android {
 }
 
 dependencies {
-    def media3_version = "1.10.0-rc01"
+    def media3_version = "1.10.0"
 
     testImplementation "junit:junit:4.13.2"
     testImplementation "org.robolectric:robolectric:4.14.1"
     testImplementation "androidx.test:core:1.6.1"
 
-    // Media3 ExoPlayer（RC，升级后请在目标盒子上做播放回归）
+    // Media3 ExoPlayer（stable，升级后请在目标盒子上做播放回归）
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-exoplayer-hls:$media3_version"
     implementation "androidx.media3:media3-exoplayer-dash:$media3_version"

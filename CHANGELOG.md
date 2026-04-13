@@ -4,6 +4,13 @@
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
 
+## [1.2.1] - 2026-04-13
+
+### Changed
+
+- Media3 从 `1.10.0-rc01` 升级到正式版 `1.10.0`，与官方稳定发布对齐
+- 对当前项目执行 `testDebugUnitTest` 与 `assembleDebug` 验证，确认现有播放器链路可正常编译并通过单元测试
+
 ## [1.2.0] - 2026-04-13
 
 ### Added
@@ -45,6 +52,7 @@
 - `SettingsCollapsibleFragment`：切换播放线路后子菜单刷新，方向键右键无法回到主菜单
 
 [1.1.0]: https://github.com/whyun-android/witv/compare/v1.0.2...v1.1.0
+[1.2.1]: https://github.com/whyun-android/witv/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/whyun-android/witv/compare/v1.1.0...v1.2.0
 
 ## [1.0.2] - 2026-03-21

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -213,6 +214,25 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
     private void initPlayer() {
         playerView = findViewById(R.id.player_view);
         playerView.setUseController(false);
+        playerView.setOnTouchListener((v, event) -> {
+            if (event.getAction() != MotionEvent.ACTION_UP) {
+                return false;
+            }
+            if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
+                return false;
+            }
+            if (isSettingsPanelVisible() || isChannelListPanelVisible()) {
+                return false;
+            }
+            float touchX = event.getX();
+            if (touchX < v.getWidth() / 2f) {
+                showChannelList();
+            } else {
+                showSettingsPanel();
+            }
+            v.performClick();
+            return true;
+        });
 
         playerManager = new PlayerManager(this);
         playerManager.initialize(playerView);
@@ -1197,13 +1217,6 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
                         return true;
                     }
                 }
-                if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
-                    break;
-                }
-                if (!isSettingsPanelVisible() && !isChannelListPanelVisible()) {
-                    showSettingsPanel();
-                    return true;
-                }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (isChannelListPanelVisible()) {
@@ -1213,13 +1226,6 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
                         focusSelectedGroupRow();
                         return true;
                     }
-                }
-                if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
-                    break;
-                }
-                if (!isSettingsPanelVisible() && !isChannelListPanelVisible()) {
-                    showChannelList();
-                    return true;
                 }
                 break;
             case KeyEvent.KEYCODE_BACK:

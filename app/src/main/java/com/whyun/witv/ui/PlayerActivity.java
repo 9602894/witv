@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -213,6 +214,30 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
     private void initPlayer() {
         playerView = findViewById(R.id.player_view);
         playerView.setUseController(false);
+        playerView.setOnTouchListener((v, event) -> {
+            int action = event.getActionMasked();
+            // PlayerView does not claim touches when its controller is disabled, so claim the sequence here.
+            if (action == MotionEvent.ACTION_DOWN) {
+                return true;
+            }
+            if (action != MotionEvent.ACTION_UP) {
+                return false;
+            }
+            if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
+                return false;
+            }
+            if (isSettingsPanelVisible() || isChannelListPanelVisible()) {
+                return false;
+            }
+            float touchX = event.getX();
+            if (touchX < v.getWidth() / 2f) {
+                showChannelList();
+            } else {
+                showSettingsPanel();
+            }
+            v.performClick();
+            return true;
+        });
 
         playerManager = new PlayerManager(this);
         playerManager.initialize(playerView);

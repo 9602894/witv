@@ -1197,6 +1197,13 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
                         return true;
                     }
                 }
+                if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
+                    break;
+                }
+                if (!isSettingsPanelVisible() && !isChannelListPanelVisible()) {
+                    showSettingsPanel();
+                    return true;
+                }
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 if (isChannelListPanelVisible()) {
@@ -1206,6 +1213,13 @@ public class PlayerActivity extends FragmentActivity implements PlayerManager.Ca
                         focusSelectedGroupRow();
                         return true;
                     }
+                }
+                if (emptyState != null && emptyState.getVisibility() == View.VISIBLE) {
+                    break;
+                }
+                if (!isSettingsPanelVisible() && !isChannelListPanelVisible()) {
+                    showChannelList();
+                    return true;
                 }
                 break;
             case KeyEvent.KEYCODE_BACK:
